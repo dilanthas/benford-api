@@ -5,6 +5,7 @@ import com.charleskorn.kaml.YamlConfiguration
 import kotlinx.coroutines.runBlocking
 import org.benford.api.ApiServer
 import org.benford.config.RestApiConfig
+import org.benford.service.BenfordService
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -21,7 +22,7 @@ fun main(args: Array<String>) = runBlocking<Unit> {
         exitProcess(1)
     }
     loadConfig(configFile).also { config ->
-        val server = ApiServer(config)
+        val server = ApiServer(config, BenfordService())
         server.start()
     }
 }
