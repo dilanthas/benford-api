@@ -3,7 +3,7 @@ package org.benford.common
 import org.benford.api.ApiRequest
 
 object ApiRequestValidator {
-    fun validate(request: ApiRequest,inputLimit: Long){
+    fun validate(request: ApiRequest, inputLimit: Long) {
         if (request.input.isBlank()) {
             throw IllegalArgumentException("Input must not be blank.")
         }

@@ -4,7 +4,7 @@ object NumberExtractor {
 
     // Matches numbers with optional currency symbols, minus signs, commas, and decimals
     private val numberPattern = Regex(
-        """(?<!\d)([\$€£¥]?-?\d{1,3}(,\d{3})*(\.\d+)?|[\$€£¥]?-?\d+(\.\d+)?)(?!\d)"""
+        """(?<!\d)([$€£¥]?-?\d{1,3}(,\d{3})*(\.\d+)?|[$€£¥]?-?\d+(\.\d+)?)(?!\d)"""
     )
 
     fun extractNumbers(text: String): List<Long> {
@@ -21,13 +21,13 @@ object NumberExtractor {
 
     private fun removeFormatting(number: String): String {
         return number
-            .replace(Regex("[\$€£¥,-]"), "") // Remove currency symbols, commas, and minus signs
-            .replace(".", "")                // Remove decimal point
+            .replace(Regex("[\$€£¥,-]"), "")
+            .replace(".", "")
     }
 
     private fun isValidNumber(number: String): Boolean {
         return number.isNotEmpty() &&
                 number.all { it.isDigit() } &&
-                number.first() != '0'
+                number.first() != '0'  // ignore numbers starting with zero
     }
 }
