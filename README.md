@@ -15,6 +15,8 @@ A Ktor-based REST API that analyzes the distribution of leading digits in numeri
     - Chi-square statistic
     - p-value
     - Pass/fail flag
+- Input string length is configurable and currently set to 10,000
+
 
 ---
 ## 🧾 Assumptions
