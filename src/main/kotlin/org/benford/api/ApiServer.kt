@@ -20,7 +20,7 @@ import org.benford.service.BenfordService
 import java.util.concurrent.TimeUnit
 import kotlin.time.Duration.Companion.milliseconds
 
-class ApiServer(private val config: RestApiConfig,private val service: BenfordService) : Service {
+class ApiServer(private val config: RestApiConfig, private val service: BenfordService) : Service {
 
     private val app = embeddedServer(
         factory = Netty,
@@ -47,7 +47,7 @@ class ApiServer(private val config: RestApiConfig,private val service: BenfordSe
     private fun Route.analyze() = post {
         withTimeout(config.requestTimeOutMillis.milliseconds) {
             val apiRequest = call.receive<ApiRequest>()
-            ApiRequestValidator.validate(apiRequest)
+            ApiRequestValidator.validate(apiRequest, config.inputLimit)
             call.respond(service.analyse(apiRequest.toDomain()).toApi())
         }
     }

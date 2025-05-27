@@ -1,1 +1,2 @@
-port: 10401
+port: 8080
+inputLimit: 10000

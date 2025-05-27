@@ -2,12 +2,13 @@ package org.benford.domain
 
 import org.benford.api.ApiRequest
 import org.benford.common.ApiRequestValidator
-import org.benford.common.MAX_INPUT_LENGTH
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
 class ApiRequestValidatorTest {
+    private val inputLimit = 10_000L
+
     @Test
     fun `validate succeeds for valid input`() {
         val request = ApiRequest(
@@ -15,7 +16,7 @@ class ApiRequestValidatorTest {
             significanceLevel = 0.05
         )
 
-        ApiRequestValidator.validate(request) // should not throw
+        ApiRequestValidator.validate(request, inputLimit)
     }
 
     @Test
@@ -26,7 +27,7 @@ class ApiRequestValidatorTest {
         )
 
         val ex = assertThrows<IllegalArgumentException> {
-            ApiRequestValidator.validate(request)
+            ApiRequestValidator.validate(request, inputLimit)
         }
 
         assertEquals("Input must not be blank.", ex.message)
@@ -35,15 +36,15 @@ class ApiRequestValidatorTest {
     @Test
     fun `throws for input longer than MAX_INPUT_LENGTH`() {
         val request = ApiRequest(
-            input = "1".repeat(MAX_INPUT_LENGTH + 1),
+            input = "1".repeat(inputLimit.toInt() + 1),
             significanceLevel = 0.05
         )
 
         val ex = assertThrows<IllegalArgumentException> {
-            ApiRequestValidator.validate(request)
+            ApiRequestValidator.validate(request, inputLimit)
         }
 
-        assertEquals("Input exceeds maximum length of $MAX_INPUT_LENGTH characters.", ex.message)
+        assertEquals("Input exceeds maximum length of $inputLimit characters.", ex.message)
     }
 
     @Test
@@ -54,7 +55,7 @@ class ApiRequestValidatorTest {
         )
 
         val ex = assertThrows<IllegalArgumentException> {
-            ApiRequestValidator.validate(request)
+            ApiRequestValidator.validate(request, inputLimit)
         }
 
         assertEquals("Significance level must be between 0.0 and 1.0.", ex.message)
@@ -68,7 +69,7 @@ class ApiRequestValidatorTest {
         )
 
         val ex = assertThrows<IllegalArgumentException> {
-            ApiRequestValidator.validate(request)
+            ApiRequestValidator.validate(request, inputLimit)
         }
 
         assertEquals("Significance level must be between 0.0 and 1.0.", ex.message)
