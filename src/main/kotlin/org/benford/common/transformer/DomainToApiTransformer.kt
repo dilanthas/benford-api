@@ -1,4 +1,4 @@
-package org.benford.common
+package org.benford.common.transformer
 
 import org.benford.api.ApiResponse
 import org.benford.domain.Output
@@ -6,7 +6,9 @@ import org.benford.domain.Output
 fun Output.toApi() = ApiResponse(
     actualDistribution = this.actualDistribution,
     expectedDistribution = this.expectedDistribution,
-    followsBenfordsLaw = this.followsBenfordsLaw,
-    criticalValue = this.criticalValue,
-    chiSquareValue = this.chiSquareValue
+    passed = this.passed,
+    pValue = this.pValue,
+    chiSquareValue = this.chiSquareValue,
+    significanceLevel = this.significanceLevel
+
 )

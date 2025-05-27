@@ -2,7 +2,7 @@ package org.benford.common
 
 import org.benford.api.ApiRequest
 
-private const val MAX_INPUT_LENGTH = 10_000
+const val MAX_INPUT_LENGTH = 10_000
 
 object ApiRequestValidator {
     fun validate(request: ApiRequest){

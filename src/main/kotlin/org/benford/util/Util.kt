@@ -7,24 +7,13 @@ fun getFirstDigit(number: Long): Int {
     return n.toInt()
 }
 
-fun countFirstDigits(numbers: List<Long>): Map<Int, Long> {
-    val counts = numbers.map { getFirstDigit(it) }
-        .groupingBy { it }
+fun firstDigitDistribution(numbers: List<Long>): Map<Int, Long> {
+    val rawCounts = numbers.groupingBy { getFirstDigit(it) }
         .eachCount()
         .mapValues { it.value.toLong() }
 
-    return (1..9).associateWith { digit ->
-        counts.getOrDefault(digit, 0L)
-    }
+    return (1..9).associateWith { rawCounts.getOrDefault(it, 0L) }
 }
 
-fun getNumberDistribution(numbers: List<Long>): Map<Int, Double> {
-    val total = numbers.size.toDouble()
-    val counts = numbers.map { getFirstDigit(it) }
-        .groupingBy { it }
-        .eachCount()
-
-    return (1..9).associateWith { digit ->
-        counts.getOrDefault(digit, 0).toDouble() / total
-    }
-}
+fun Map<Int, Long>.toOrderedValues(): LongArray =
+    (1..9).map { digit -> this.getOrDefault(digit, 0L) }.toLongArray()

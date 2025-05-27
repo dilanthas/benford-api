@@ -1,4 +1,4 @@
-package org.benford.common
+package org.benford.common.transformer
 
 import org.benford.api.ApiRequest
 import org.benford.domain.Input

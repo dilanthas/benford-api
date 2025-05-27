@@ -13,14 +13,14 @@ import java.util.stream.Stream
 class NumberExtractorTest {
 
     @ParameterizedTest(name = "{index} => input=\"{0}\"")
-    @MethodSource("provideTextSamples")
-    @DisplayName("Extracts valid numbers from text")
+    @MethodSource("inputSamples")
+    @DisplayName("Extracts valid numbers from input")
     fun extractNumbers(input: String, expected: List<Long>) {
         val actual = NumberExtractor.extractNumbers(input)
         assertEquals(expected, actual)
     }
 
-    fun provideTextSamples(): Stream<Arguments> = Stream.of(
+    private fun inputSamples(): Stream<Arguments> = Stream.of(
         Arguments.of("$123.45, €56.78, £0.99", listOf(12345L, 5678L)),
         Arguments.of("-$1,234.56 -€8,765.43", listOf(123456L, 876543L)),
         Arguments.of("0123 001 099 £0.99", emptyList<String>()),

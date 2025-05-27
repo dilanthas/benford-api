@@ -1,7 +1,9 @@
 package org.benford.domain
 
+import kotlin.math.roundToLong
+
 object BenfordDistribution {
-    val distribution: Map<Int, Double> = mapOf(
+    private val distribution: Map<Int, Double> = mapOf(
         1 to 0.301,
         2 to 0.176,
         3 to 0.125,
@@ -12,10 +14,15 @@ object BenfordDistribution {
         8 to 0.051,
         9 to 0.046
     )
+
+    fun expectedCounts(sampleSize: Long): DoubleArray {
+        return (1..9).map { digit -> distribution.getOrDefault(digit, 0.0) * sampleSize }.toDoubleArray()
+    }
+
+    fun expectedDistribution(sampleSize: Long): Map<Int, Long> {
+        return (1..9).associateWith { digit ->
+            (distribution.getOrDefault(digit, 0.0) * sampleSize).roundToLong()
+        }
+    }
 }
 
-fun Map<Int, Double>.scale(sampleSize: Long): DoubleArray {
-    return (1..9).map { digit ->
-        this.getOrDefault(digit, 0.0) * sampleSize
-    }.toDoubleArray()
-}

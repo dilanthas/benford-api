@@ -1,27 +1,33 @@
-// util/NumberExtractor.kt
 package org.benford.util
 
 object NumberExtractor {
 
-    // Match full number tokens with optional currency, minus, commas, and decimals
-    private val regex = Regex("""(?<!\d)([\$€£¥]?-?\d{1,3}(,\d{3})*(\.\d+)?|[\$€£¥]?-?\d+(\.\d+)?)(?!\d)""")
+    // Matches numbers with optional currency symbols, minus signs, commas, and decimals
+    private val numberPattern = Regex(
+        """(?<!\d)([\$€£¥]?-?\d{1,3}(,\d{3})*(\.\d+)?|[\$€£¥]?-?\d+(\.\d+)?)(?!\d)"""
+    )
 
     fun extractNumbers(text: String): List<Long> {
-        return regex.findAll(text)
-            .mapNotNull { match ->
-                val raw = match.value
+        return numberPattern.findAll(text)
+            .mapNotNull { matchResult ->
+                val rawNumber = matchResult.value
+                val digitsOnly = removeFormatting(rawNumber)
 
-                // Remove formatting characters
-                val cleaned = raw
-                    .replace(Regex("[\$€£¥,-]"), "")
-                    .replace(".", "")
-
-                // Ensure the result is a valid non-zero-leading digit string
-                if (cleaned.isEmpty() || !cleaned.all { it.isDigit() }) return@mapNotNull null
-                if (cleaned.first() == '0') return@mapNotNull null
-
-                cleaned.toLong()
+                if (!isValidNumber(digitsOnly)) return@mapNotNull null
+                digitsOnly.toLong()
             }
             .toList()
+    }
+
+    private fun removeFormatting(number: String): String {
+        return number
+            .replace(Regex("[\$€£¥,-]"), "") // Remove currency symbols, commas, and minus signs
+            .replace(".", "")                // Remove decimal point
+    }
+
+    private fun isValidNumber(number: String): Boolean {
+        return number.isNotEmpty() &&
+                number.all { it.isDigit() } &&
+                number.first() != '0'
     }
 }

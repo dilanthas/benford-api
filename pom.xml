@@ -23,12 +23,6 @@
     </repositories>
 
     <dependencies>
-        <!-- Apache Commons Math for Chi-square test -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-math3</artifactId>
-            <version>3.6.1</version>
-        </dependency>
         <!-- Kotlin stdlib -->
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
@@ -115,6 +109,25 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-test</artifactId>
             <version>${kotlin.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-client-cio-jvm</artifactId>
+            <version>${ktor.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlinx</groupId>
+            <artifactId>kotlinx-io-core-jvm</artifactId>
+            <version>0.7.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-client-content-negotiation</artifactId>
+            <version>${ktor.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

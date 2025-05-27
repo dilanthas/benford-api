@@ -31,15 +31,15 @@ class UtilTest {
     @MethodSource("provideFirstDigitCounts")
     @DisplayName("getFirstDigitCounts returns correct digit counts")
     fun testGetFirstDigitCounts(numbers: List<Long>, expected: Map<Int, Long>) {
-        val actual = countFirstDigits(numbers)
+        val actual = firstDigitDistribution(numbers)
         assertEquals(expected, actual)
     }
 
     @ParameterizedTest(name = "{index} => numbers={0}, expectedDistribution={1}")
     @MethodSource("provideNumberListsForDistribution")
     @DisplayName("getNumberDistribution computes correct digit frequency")
-    fun testGetNumberDistribution(numbers: List<Long>, expected: Map<Int, Double>) {
-        val actual = getNumberDistribution(numbers)
+    fun testGetNumberDistribution(numbers: List<Long>, expected: Map<Int, Long>) {
+        val actual = firstDigitDistribution(numbers)
         assertEquals(expected, actual)
     }
 
@@ -61,43 +61,43 @@ class UtilTest {
             Arguments.of(
                 listOf(123L, 789L, 456L),
                 mapOf(
-                    1 to 0.3333333333333333,
-                    2 to 0.0,
-                    3 to 0.0,
-                    4 to 0.3333333333333333,
-                    5 to 0.0,
-                    6 to 0.0,
-                    7 to 0.3333333333333333,
-                    8 to 0.0,
-                    9 to 0.0
+                    1 to 1L,
+                    2 to 0,
+                    3 to 0,
+                    4 to 1L,
+                    5 to 0,
+                    6 to 0,
+                    7 to 1L,
+                    8 to 0,
+                    9 to 0
                 )
             ),
             Arguments.of(
                 listOf(11L, 12L, 13L, 21L, 22L, 31L),
                 mapOf(
-                    1 to 0.5,
-                    2 to 0.3333333333333333,
-                    3 to 0.16666666666666666,
-                    4 to 0.0,
-                    5 to 0.0,
-                    6 to 0.0,
-                    7 to 0.0,
-                    8 to 0.0,
-                    9 to 0.0
+                    1 to 3L,
+                    2 to 2L,
+                    3 to 1L,
+                    4 to 0,
+                    5 to 0,
+                    6 to 0,
+                    7 to 0,
+                    8 to 0,
+                    9 to 0
                 )
             ),
             Arguments.of(
                 listOf(100L, 101L, 102L, 200L, 300L),
                 mapOf(
-                    1 to 0.6,
-                    2 to 0.2,
-                    3 to 0.2,
-                    4 to 0.0,
-                    5 to 0.0,
-                    6 to 0.0,
-                    7 to 0.0,
-                    8 to 0.0,
-                    9 to 0.0
+                    1 to 3L,
+                    2 to 1L,
+                    3 to 1L,
+                    4 to 0,
+                    5 to 0,
+                    6 to 0,
+                    7 to 0,
+                    8 to 0,
+                    9 to 0
                 )
             )
         )

@@ -1,7 +1,6 @@
 package org.benford.api
 
 import customExceptionMappers
-import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -14,8 +13,8 @@ import io.ktor.server.routing.*
 import kotlinx.coroutines.withTimeout
 import org.benford.common.ApiRequestValidator
 import org.benford.common.Service
-import org.benford.common.toApi
-import org.benford.common.toDomain
+import org.benford.common.transformer.toApi
+import org.benford.common.transformer.toDomain
 import org.benford.config.RestApiConfig
 import org.benford.service.BenfordService
 import java.util.concurrent.TimeUnit

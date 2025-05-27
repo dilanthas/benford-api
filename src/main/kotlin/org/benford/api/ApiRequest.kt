@@ -9,9 +9,10 @@ data class ApiRequest(
 )
 @Serializable
 data class ApiResponse(
-    val expectedDistribution: Map<Int, Double>,
-    val actualDistribution: Map<Int, Double>,
+    val expectedDistribution: Map<Int, Long>,
+    val actualDistribution: Map<Int, Long>,
     val chiSquareValue: Double,
-    val criticalValue: Double,
-    val followsBenfordsLaw: Boolean
+    val pValue: Double,
+    val passed: Boolean,
+    val significanceLevel: Double
 )
